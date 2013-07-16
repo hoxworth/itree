@@ -18,5 +18,9 @@ module Intervals
 				other.scores[1] <=> @scores[1]
 			end
 		end
+
+		def ==(other)
+			@scores == other.scores
+		end
 	end
 end

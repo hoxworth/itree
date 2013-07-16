@@ -26,6 +26,9 @@ describe Intervals::Node do
 		end
 
 		describe "#==" do
+			it { (lesser_min_node == lesser_min_node).should be true }
+			it { (lesser_min_node == greater_min_node).should_not be true }
+			it { (greater_min_node == greater_min_node).should be true }
 		end
 	end
 
