@@ -92,7 +92,58 @@ describe Intervals::Node do
 	end
 
 	describe "#updateMaxScores" do
+		let(:node) do
+			n = Intervals::Node.new(5,10,nil)
+			n.left = Intervals::Node.new(0,5,nil)
+			n.left.parent = n
+			n.right = Intervals::Node.new(15,20,nil)
+			n.right.parent = n
+			n.left.left = Intervals::Node.new(-2,0,nil)
+			n.left.left.parent = n.left
+			n.left.right = Intervals::Node.new(3,5,nil)
+			n.left.right.parent = n.left
+			n.right.left = Intervals::Node.new(10,15,nil)
+			n.right.left.parent = n.right
+			n.right.right = Intervals::Node.new(20,25,nil)
+			n.right.right.parent = n.right
+			n
+		end
 
+		context "left-left child has largest max score" do
+			before(:each) { node.left.left.scores[1] = 100 }
+
+			it "sets the maxLeftScore to the max score of the left-left child" do
+				node.left.left.updateMaxScores
+				node.subLeftMax.should eq node.left.left.scores[1]
+			end
+		end
+
+		context "left-right child has largest max score" do
+			before(:each) { node.left.right.scores[1] = 100 }
+
+			it "sets the maxLeftScore to the max score of the left-right child" do
+				node.left.right.updateMaxScores
+				node.subLeftMax.should eq node.left.right.scores[1]
+			end
+		end
+
+		context "right-left child has largest max score" do
+			before(:each) { node.right.left.scores[1] = 100 }
+
+			it "sets the maxRightScore to the max score of the right-left child" do
+				node.right.left.updateMaxScores
+				node.subRightMax.should eq node.right.left.scores[1]
+			end
+		end
+
+		context "right-right child has largest max score" do
+			before(:each) { node.right.right.scores[1] = 100 }
+
+			it "sets the maxRightScore to the max score of the right-right child" do
+				node.right.right.updateMaxScores
+				node.subRightMax.should eq node.right.right.scores[1]
+			end
+		end
 	end
 
 end

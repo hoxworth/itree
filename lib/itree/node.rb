@@ -38,5 +38,28 @@ module Intervals
 			@balance = 0
 		end
 
+		def updateMaxScores
+			oldNodeMax = 0
+			locNode = self
+			while locNode
+				if locNode.left
+					oldNodeMax = locNode.left.scores[1]
+					oldNodeMax = (locNode.left.subLeftMax && (oldNodeMax < locNode.left.subLeftMax)) ? locNode.left.subLeftMax : oldNodeMax
+					oldNodeMax = (locNode.left.subRightMax && (oldNodeMax < locNode.left.subRightMax)) ? locNode.left.subRightMax : oldNodeMax
+					locNode.subLeftMax = oldNodeMax
+				else
+					locNode.subLeftMax = nil
+				end
+				if locNode.right
+					oldNodeMax = locNode.right.scores[1]
+					oldNodeMax = (locNode.right.subLeftMax && (oldNodeMax < locNode.right.subLeftMax)) ? locNode.right.subLeftMax : oldNodeMax
+					oldNodeMax = (locNode.right.subRightMax && (oldNodeMax < locNode.right.subRightMax)) ? locNode.right.subRightMax : oldNodeMax
+					locNode.subRightMax = oldNodeMax
+				else
+					locNode.subRightMax = nil
+				end
+				locNode = locNode.parent
+			end
+		end
 	end
 end
