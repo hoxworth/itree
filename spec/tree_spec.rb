@@ -21,7 +21,7 @@ describe Intervals::Tree do
 		context "inserting duplicates" do
 			before(:each) { tree.insert(0,10,nil)}
 
-			it { tree.insert(0,10,"taco").should be false}
+			it { tree.insert(0,10,"taco").should_not be true}
 			it "should not increase the size" do
 				tree.insert(0,10,"taco")
 				tree.size.should_not eq 2
