@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = "http://github.com/hoxworth/itree"
 
   gem.files         = Dir["lib/**/*"]
-  gem.test_files    = Dir["spec/**/*spec*"]
+  gem.test_files    = Dir["spec/**/*spec.rb"]
   gem.name          = "itree"
   gem.require_paths = ["lib"]
   gem.version       = Intervals::VERSION
