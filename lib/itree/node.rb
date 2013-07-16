@@ -22,5 +22,21 @@ module Intervals
 		def ==(other)
 			@scores == other.scores
 		end
+
+		def resetBalance
+			case @balance
+			when -1
+				@left.balance = 0
+				@right.balance = 1
+			when 0
+				@left.balance = 0
+				@right.balance = 0
+			when 1
+				@left.balance = -1
+				@right.balance = 0
+			end
+			@balance = 0
+		end
+
 	end
 end

@@ -32,10 +32,63 @@ describe Intervals::Node do
 		end
 	end
 
-	describe "#insert" do
-	end
-
 	describe "#resetBalance" do
+		let(:node) do
+			n = Intervals::Node.new(5,10,nil)
+			n.left = Intervals::Node.new(0,5,nil)
+			n.left.balance = 2
+			n.right = Intervals::Node.new(15,20,nil)
+			n.right.balance = 2
+			n
+		end
+
+		it "resets balance to 0" do
+			node.balance = 1
+			node.resetBalance
+			node.balance.should eq 0
+		end
+
+		context "when balance is -1" do
+			before(:each)  { node.balance = -1 }
+
+			it "sets left child balance to 0" do
+				node.resetBalance
+				node.left.balance.should eq 0
+			end
+
+			it "sets right child balance to 1" do
+				node.resetBalance
+				node.right.balance.should eq 1
+			end
+		end
+
+		context "when balance is 0" do
+			before(:each)  { node.balance = 0 }
+
+			it "sets left child balance to 0" do
+				node.resetBalance
+				node.left.balance.should eq 0
+			end
+
+			it "sets right child balance to 0" do
+				node.resetBalance
+				node.right.balance.should eq 0
+			end
+		end
+
+		context "when balance is 1" do
+			before(:each)  { node.balance = 1 }
+
+			it "sets left child balance to -1" do
+				node.resetBalance
+				node.left.balance.should eq -1
+			end
+
+			it "sets right child balance to 0" do
+				node.resetBalance
+				node.right.balance.should eq 0
+			end
+		end
 	end
 
 	describe "#updateMaxScores" do
