@@ -10,5 +10,13 @@ module Intervals
 			@balance = 0
 			@data = data
 		end
+
+		def <=>(other)
+			if @scores[0] != other.scores[0]
+				@scores[0] <=> other.scores[0]
+			else
+				other.scores[1] <=> @scores[1]
+			end
+		end
 	end
 end
