@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = Dir["spec/**/*spec.rb"]
   gem.name          = "itree"
   gem.require_paths = ["lib"]
+  gem.license       = "MIT"
   gem.version       = Intervals::VERSION
 
   gem.add_development_dependency 'rspec'
