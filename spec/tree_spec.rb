@@ -108,6 +108,23 @@ describe Intervals::Tree do
 
 	end
 
+	describe "#insert!" do
+		context "inserting duplicates" do
+			before(:each) { tree.insert(0,10,"cheese")}
+
+			it { tree.root.data.should eq "cheese" }
+			it { tree.insert!(0,10,"taco").should_not be true}
+			it "does not increase tree size" do
+				tree.insert!(0,10,"taco")
+				tree.size.should_not eq 2
+			end
+			it "updates the node data" do
+				tree.insert!(0,10,"taco")
+				tree.root.data.should eq "taco"
+			end
+		end
+	end
+
 	describe "#remove" do
 
 	end
