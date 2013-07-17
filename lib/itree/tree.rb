@@ -7,18 +7,29 @@ module Intervals
 			@size = 0
 		end
 
-		def insert(leftScore, rightScore, data=nil)
+		def insert(leftScore, rightScore, data=nil, updateData=false)
 			node = Node.new(leftScore,rightScore,data)
 			success = true
 
 			if @root.nil?
 				@root = node
 			else
-				balance,success = insertNode(@root,node)
+				balance,success = insertNode(@root,node,updateData)
 			end
 
 			@size = @size + 1 if success
 			return success
+		end
+
+		def insert!(leftScore, rightScore, data=nil)
+			return insert(leftScore,rightScore,data,true)
+		end
+
+		def stab(minScore,maxScore=nil)
+			maxScore = minScore if maxScore.nil?
+			results = []
+			stabNode(@root,minScore,maxScore,results) if @root
+			results
 		end
 
 		private
