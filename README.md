@@ -14,7 +14,7 @@ From the git repo:
 
 ```
 $ gem build itree.gemspec
-$ gem install json-schema-0.1.gem
+$ gem install json-schema-0.1.1.gem
 ```
 
 # Usage
