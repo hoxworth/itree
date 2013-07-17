@@ -7,7 +7,7 @@ module Intervals
 			@size = 0
 		end
 
-		def insert(leftScore, rightScore, data)
+		def insert(leftScore, rightScore, data=nil)
 			node = Node.new(leftScore,rightScore,data)
 			success = true
 
@@ -112,6 +112,48 @@ module Intervals
 			else
 				locNode.data = insertNode.data if updateData
 				return 0,false
+			end
+		end
+
+		def leftRotation(locNode)
+			newRoot = locNode.right
+			locNode.right = newRoot.left
+			if locNode.right
+				locNode.right.parent = locNode
+			end
+			newRoot.left = locNode
+
+			newRoot.parent = locNode.parent
+			locNode.parent = newRoot
+			if newRoot.parent
+				if ((newRoot.parent <=> newRoot) > -1)
+					newRoot.parent.left = newRoot
+				else
+					newRoot.parent.right = newRoot
+				end
+			else
+				@root = newRoot
+			end
+		end
+
+		def rightRotation(locNode)
+			newRoot = locNode.left
+			locNode.left = newRoot.right
+			if locNode.left
+				locNode.left.parent = locNode
+			end
+			newRoot.right = locNode
+
+			newRoot.parent = locNode.parent
+			locNode.parent = newRoot
+			if newRoot.parent
+				if ((newRoot.parent <=> newRoot) > -1)
+					newRoot.parent.left = newRoot
+				else
+					newRoot.parent.right = newRoot
+				end
+			else
+				@root = newRoot
 			end
 		end
 	end
