@@ -130,6 +130,65 @@ describe Intervals::Tree do
 	end
 
 	describe "#stab" do
+		before(:each) do
+			tree.insert(100,200)
+			tree.insert(200,300)
+			tree.insert(150,250)
+			tree.insert(300,400)
+			tree.insert(400,500)
+			tree.insert(50,100)
+			tree.insert(75,125)
+			tree.insert(25,50)
+			tree.insert(0,25)
+		end
 
+		context "single point stab" do
+			it { tree.stab(23).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(23).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [0,25]
+			end
+
+			it { tree.stab(40).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(40).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [25,50]
+			end
+
+			it { tree.stab(77).length.should eq 2 }
+			it "returns two ranges" do
+				results = tree.stab(77).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [50,100]
+				results[1].should eq [75,125]
+			end
+
+			it { tree.stab(175).length.should eq 2 }
+			it "returns two ranges" do
+				results = tree.stab(175).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [100,200]
+				results[1].should eq [150,250]
+			end
+
+			it { tree.stab(350).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(350).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [300,400]
+			end
+		end
+
+		context "range stab" do
+			it { tree.stab(55,90).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(55,90).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [50,100]
+			end
+
+			it { tree.stab(80,90).length.should eq 2 }
+			it "returns two ranges" do
+				results = tree.stab(80,90).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [50,100]
+				results[1].should eq [75,125]
+			end
+		end
 	end
 end
