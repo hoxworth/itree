@@ -156,5 +156,28 @@ module Intervals
 				@root = newRoot
 			end
 		end
+
+		def stabNode(node, minScore, maxScore, results)
+			if node.subRightMax &&
+				 minScore > node.subRightMax &&
+				 node.subLeftMax &&
+				 minScore > node.subLeftMax &&
+				 minScore > node.scores[1]
+				return
+			end
+			if node.left
+				stabNode(node.left, minScore, maxScore, results)
+			end
+
+			if minScore >= node.scores[0] && maxScore <= node.scores[1]
+				results << node.clone
+			end
+
+			return if maxScore < node.scores[0]
+
+			if node.right
+				stabNode(node.right, minScore, maxScore, results)
+			end
+		end
 	end
 end
