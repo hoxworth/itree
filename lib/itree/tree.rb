@@ -227,7 +227,7 @@ module Intervals
 			elsif diff > 0
 				if locNode.left
 					heightDelta,removed = removeNode(locNode.left,delNode)
-					if heightDelta
+					if heightDelta != 0
 						locNode.balance = locNode.balance + 1
 						if locNode.balance == 0
 							return -1,removed
@@ -273,7 +273,7 @@ module Intervals
 			elsif diff < 0
 				if locNode.right
 					heightDelta,removed = removeNode(locNode.right,delNode)
-					if heightDelta
+					if heightDelta != 0
 						locNode.balance = locNode.balance - 1
 						if locNode.balance == 0
 							return 1,removed
