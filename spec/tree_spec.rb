@@ -139,7 +139,46 @@ describe Intervals::Tree do
 			tree.insert(51,101)
 		end
 
+		it { tree.remove(0,25).should be true }
+		it { tree.remove(0,24).should be false }
 
+		context "two ranges removed" do
+			before(:each) do
+				tree.remove(100,200)
+				tree.remove(50,100)
+			end
+
+			it { tree.stab(23).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(23).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [0,25]
+			end
+
+			it { tree.stab(40).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(40).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [25,50]
+			end
+
+			it { tree.stab(77).length.should eq 2 }
+			it "returns two ranges" do
+				results = tree.stab(77).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [51,101]
+				results[1].should eq [75,125]
+			end
+
+			it { tree.stab(175).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(175).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [150,250]
+			end
+
+			it { tree.stab(350).length.should eq 1 }
+			it "returns a single range" do
+				results = tree.stab(350).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
+				results[0].should eq [300,400]
+			end
+		end
 	end
 
 	describe "#stab" do
@@ -153,13 +192,8 @@ describe Intervals::Tree do
 			tree.insert(75,125)
 			tree.insert(25,50)
 			tree.insert(0,25)
-			tree.insert(51,101)
-			tree.remove(100,200)
-			tree.remove(50,100)
 		end
 
-		it { tree.remove(0,25).should be true }
-		it { tree.remove(0,24).should be false }
 
 		it { tree.stab(23).length.should eq 1 }
 		it "returns a single range" do
@@ -176,14 +210,15 @@ describe Intervals::Tree do
 		it { tree.stab(77).length.should eq 2 }
 		it "returns two ranges" do
 			results = tree.stab(77).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
-			results[0].should eq [51,101]
+			results[0].should eq [50,100]
 			results[1].should eq [75,125]
 		end
 
-		it { tree.stab(175).length.should eq 1 }
-		it "returns a single range" do
+		it { tree.stab(175).length.should eq 2 }
+		it "returns a two ranges" do
 			results = tree.stab(175).map{|n| n.scores }.sort{|a,b| a[0] <=> b[0]}
-			results[0].should eq [150,250]
+			results[0].should eq [100,200]
+			results[1].should eq [150,250]
 		end
 
 		it { tree.stab(350).length.should eq 1 }
