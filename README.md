@@ -1,6 +1,6 @@
 # Intervals::Tree
 
-An interval tree used to find interval inclusion for arbitrary points and ranges. This library utilizes an augmented AVL tree for `O(logn)` insertion, removal, and querying.
+An interval tree used to find interval inclusion for arbitrary points and ranges. This library utilizes an augmented AVL tree for `O(log(n))` insertion, removal, and querying.
 
 ## Installation
 
