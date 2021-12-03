@@ -10,13 +10,6 @@ From rubygems.org:
 gem install itree
 ```
 
-From the git repo:
-
-```
-$ gem build itree.gemspec
-$ gem install json-schema-0.1.2.gem
-```
-
 # Usage
 
 ### Insertion
